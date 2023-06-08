@@ -16,14 +16,14 @@ class MahasiswaFactory extends Factory
      */
     public function definition(): array
     {
-        $jurusan = ['Teknik Informatika', 'Konstruksi Gedung', 'Teknik Aeronautika', 'Teknik Otomasi Industri'];
-        $prodi = ['Teknik Komputer dan Informatika', 'Teknik Sipil', 'Teknik Mesin', 'Teknik Elektro'];
+        $prodi = ['Teknik Informatika', 'Konstruksi Gedung', 'Teknik Aeronautika', 'Teknik Otomasi Industri'];
+        $jurusan = ['Teknik Komputer dan Informatika', 'Teknik Sipil', 'Teknik Mesin', 'Teknik Elektro'];
         $diploma = ['D3', 'D4'];
         return [
             'nama' => fake()->name(),
             'tanggal_lahir' => fake()->date(),
-            'program_studi' => $jurusan[array_rand($jurusan)],
-            'jurusan' => $prodi[array_rand($prodi)],
+            'program_studi' => $prodi[array_rand($prodi)],
+            'jurusan' => $jurusan[array_rand($jurusan)],
             'diploma' => $diploma[array_rand($diploma)]
         ];
     }

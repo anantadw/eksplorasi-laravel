@@ -14,15 +14,26 @@ class MahasiswaController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->search) {
-            $mahasiswa = Mahasiswa::where('nama', 'LIKE', '%' . $request->search . '%')
-                ->orWhere('tanggal_lahir', 'LIKE', '%' . $request->search . '%')
-                ->orWhere('program_studi', 'LIKE', '%' . $request->search . '%')
-                ->orWhere('jurusan', 'LIKE', '%' . $request->search . '%')
-                ->orWhere('diploma', 'LIKE', '%' . $request->search . '%')->paginate(10)->withQueryString();
-        } else {
-            $mahasiswa = Mahasiswa::paginate(10)->withQueryString();;
+        $search = $request->search;
+        $jurusan = $request->jurusan;
+        $diploma = $request->diploma;
+        $query = Mahasiswa::query();
+
+        if ($search) {
+            $query->where('nama', 'LIKE', '%' . $search . '%')
+                ->orWhere('tanggal_lahir', 'LIKE', '%' . $search . '%')
+                ->orWhere('program_studi', 'LIKE', '%' . $search . '%');
         }
+
+        if ($jurusan) {
+            $query->where('jurusan', $jurusan);
+        }
+
+        if ($diploma) {
+            $query->where('diploma', $diploma);
+        }
+
+        $mahasiswa = $query->paginate(10)->withQueryString();
 
         return view('mahasiswa.index', [
             'mahasiswa' => $mahasiswa
